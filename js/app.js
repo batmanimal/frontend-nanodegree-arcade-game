@@ -4,6 +4,9 @@
 var Enemy = function() {
     // define the initial position and speed when you instantiate this enemy
     // needs to be in x,y plane, define min and max 
+    this.xRange = [-150, 600];
+    this.yRoad = [60, 140, 220]; // y intercepts for 3 road rows 
+    this.speedRange = [150, 600];
     // find min/max by looking at engine code (width and ht) where boundaries are defined 
     // could make one ememy class and one player class 
     
@@ -13,6 +16,19 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    this.reset();
+}
+
+// define getRandomY function, as a property of Enemy prototype, to position new Enemies
+
+
+
+// define reset function
+Enemy.prototype.reset = function() {
+    var startPos = this.xRange[0]; // start at xRange at the first index. -150
+    this.x = startPos; // set to startPos, not actually calling it 
+    this.y = getRandomY();
+    this.speed = this.getRandomSpeed();
 }
 
 // Update the enemy's position, required method for game
@@ -22,7 +38,6 @@ var Enemy = function() {
 // need to apply transformation to offset row coord with pixels (where the thing is actually going to show up)
 
 Enemy.prototype.update = function(dt) {
-    // this is predefined in the engine 
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
